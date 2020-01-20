@@ -43,17 +43,17 @@ public class UserController {
 	@Autowired AppUtils appUtils;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Response> getUserById(@PathVariable("id") String id)
+	public ResponseEntity<Response> getUserById(@PathVariable("phoneNumber") String phoneNumber)
 	{
-		log.info("Received request to retrieve user by id: " + id);
+		log.info("Received request to retrieve user by phone Number: " + phoneNumber);
 		
 		try {
-			User user = userRepo.findById(id).orElseThrow(() -> new NotFoundException());
+			User user = userRepo.findByPhoneNumber(phoneNumber).orElseThrow(() -> new NotFoundException());
 			return responseUtil.returnSuccessResponse(user);
 		}
 		catch(NotFoundException e) {
-			log.info("Requested resource not found with id : " + id);
-			return responseUtil.returnNotFound(id, "User");
+			log.info("Requested resource not found with phone number : " + phoneNumber);
+			return responseUtil.returnNotFound(phoneNumber, "User");
 		} 
 		catch(Exception e) {
 			log.error("Exception while processing request: ", e);
@@ -92,7 +92,7 @@ public class UserController {
 			if(errors.hasErrors()) {
 				return responseUtil.returnValidationErrors(errors);
 			}
-			if(userRepo.findByPhoneNumber(user.getPhoneNumber()).isPresent() && user.getPassword().matches(user.getPhoneNumber())) {
+			if(userRepo.findByPhoneNumber(user.getPhoneNumber()).isPresent()) {
 				return responseUtil.returnError(new 
 						Error(ResponseCodes.CONFLICT, "User with same phone number already exist."), HttpStatus.CONFLICT); 
 			}
@@ -109,20 +109,20 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{id}")
-		public String deletePost(@PathVariable String id) {
+		public String deletePost(@PathVariable String phoneNumber) {
 
 		log.info("Received request to delete user.");
-	        userRepo.deleteById(id);
+	        userRepo.findByPhoneNumber(phoneNumber);
 			return ("Deleted Successfully!!!");
 
 	    }
 		
 	@PutMapping("/{id}")
-	public ResponseEntity<Response> updateClient(@PathVariable(value = "id") String id,
+	public ResponseEntity<Response> updateClient(@PathVariable(value = "phoneNumber") String phoneNumber,
 			  @Valid @RequestBody User application) throws NotFoundException{ 
-		log.info("Received request to retrieve user application by id for update: " + id);
+		log.info("Received request to retrieve user application by id for update: " + phoneNumber);
 		
-		User app = userRepo.findById(id).orElse(null);
+		User app = userRepo.findByPhoneNumber(phoneNumber).orElse(null);
 		
 		if(null == app) 
 			throw new NotFoundException();

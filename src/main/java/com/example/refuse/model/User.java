@@ -1,24 +1,28 @@
 package com.example.refuse.model;
 
-import java.util.Date;
-import java.util.Set;
-
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 
 import lombok.Data;
 
 @Data
-@Document(collection = "users")
+@Table(name = "user")
 public class User {
 
-    @Id
-    private String id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
     @NotNull(message = "Phone Number is required")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
-    @NotNull(message = "Password is required")
-    private String password;
+    @Column(name = "fullName")
     private String fullName;
+    @NotNull(message = "Password is required")
+    @Column(name = "password")
+    private String password;
 }
