@@ -42,7 +42,7 @@ public class UserController {
 	
 	@Autowired AppUtils appUtils;
 	
-	@GetMapping("/{id}")
+	@GetMapping("/{phoneNumber}")
 	public ResponseEntity<Response> getUserById(@PathVariable("phoneNumber") String phoneNumber)
 	{
 		log.info("Received request to retrieve user by phone Number: " + phoneNumber);
@@ -108,7 +108,7 @@ public class UserController {
 		return responseUtil.returnSystemError();
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{phoneNumber}")
 		public String deletePost(@PathVariable String phoneNumber) {
 
 		log.info("Received request to delete user.");
@@ -117,7 +117,7 @@ public class UserController {
 
 	    }
 		
-	@PutMapping("/{id}")
+	@PutMapping("/{phoneNumber}")
 	public ResponseEntity<Response> updateClient(@PathVariable(value = "phoneNumber") String phoneNumber,
 			  @Valid @RequestBody User application) throws NotFoundException{ 
 		log.info("Received request to retrieve user application by id for update: " + phoneNumber);
