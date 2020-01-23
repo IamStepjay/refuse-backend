@@ -1,6 +1,7 @@
 package com.example.refuse.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
+@Entity
 @Table(name = "user")
 public class User {
 
@@ -18,9 +20,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
     @NotNull(message = "Phone Number is required")
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "fullName")
+    @Column(name = "full_name")
     private String fullName;
     @NotNull(message = "Password is required")
     @Column(name = "password")
