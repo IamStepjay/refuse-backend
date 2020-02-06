@@ -1,13 +1,13 @@
-package com.example.refuse;
+package com.oio.wms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RefuseApplicationTests {
+class WmsApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

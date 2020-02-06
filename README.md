@@ -1,2 +1,0 @@
-# Refuse Collection Backend
-
